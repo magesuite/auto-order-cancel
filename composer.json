@@ -1,5 +1,5 @@
 {
-    "name": "magesuite/auto-order-cancel",
+    "name": "creativestyle/magesuite-auto-order-cancel",
     "description": "Module for cancel bank transfer orders after given period.",
     "homepage": "https://creativestyle.de",
     "license": "OSL-3.0",
