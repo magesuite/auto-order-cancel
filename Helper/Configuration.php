@@ -20,7 +20,7 @@ class Configuration extends \Magento\Framework\App\Helper\AbstractHelper
     /**
      * @return bool
      */
-    public function getCancelOrdersEnabled(): int
+    public function getCancelOrdersEnabled(): bool
     {
         return (bool) $this->scopeConfig->getValue(self::XML_PATH_CANCEL_ORDERS_ENABLED);
     }
