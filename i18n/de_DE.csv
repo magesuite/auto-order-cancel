@@ -1,0 +1,4 @@
+"Time to cancel orders (days)","Zeit zum Stornieren von Bestellungen (Tage)"
+"Number of days after which an unpaid order will be canceled","Anzahl der Tage, nach denen eine unbezahlte Bestellung storniert wird"
+"Cancel orders cron schedule","Cron-Zeitplan für Bestellungen stornieren"
+"Enable cancellation of unpaid orders","Stornierung von unbezahlten Bestellungen ermöglichen"
