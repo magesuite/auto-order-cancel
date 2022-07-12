@@ -1,0 +1,25 @@
+{
+    "name": "magesuite/auto-order-cancel",
+    "description": "Module for cancel bank transfer orders after given period.",
+    "homepage": "https://creativestyle.de",
+    "license": "OSL-3.0",
+    "type": "magento2-module",
+    "minimum-stability": "dev",
+    "require": {
+        "magento/module-offline-payments": ">=100.4.2"
+    },
+    "authors": [
+        {
+            "name": "Dariusz Twardowski",
+            "email": "dariusz.twardowski@creativestyle.pl"
+        }
+    ],
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "MageSuite\\AutoOrderCancel\\": ""
+        }
+    }
+}

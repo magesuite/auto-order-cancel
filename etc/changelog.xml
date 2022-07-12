@@ -1,0 +1,16 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:MageSuite_Changelog:etc/changelog.xsd">
+    <module
+        id="MageSuite_AutoOrderCancel"
+        name="MageSuite_AutoOrderCancel"
+        description="This module is created to cancel bank transfer orders after given period."
+        url="https://github.com/magesuite/auto-order-cancel">
+        <changelog>
+            <tag version="v1.0.0" date="2022-06-30">
+                <entry>
+                    <type>INIT</type>
+                    <overview>Initial release</overview>
+                </entry>
+            </tag>
+        </changelog>
+    </module>
+</config>
