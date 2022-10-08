@@ -18,6 +18,6 @@ class CancelOrders
     {
         /** @var \MageSuite\AutoOrderCancel\Service\OrderCanceller $orderCanceller */
         $orderCanceller = $this->orderCancellerFactory->create();
-        $orderCanceller->cancelUnpaidOrders();
+        $orderCanceller->execute();
     }
 }

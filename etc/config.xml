@@ -1,12 +1,12 @@
 <?xml version="1.0" ?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
     <default>
-        <payment>
-            <banktransfer>
-                <cancel_orders_enabled>0</cancel_orders_enabled>
-                <cancel_orders_time>7</cancel_orders_time>
-                <cancel_orders_cron>30 3 * * *</cancel_orders_cron>
-            </banktransfer>
-        </payment>
+        <auto_order_cancel>
+            <configuration>
+                <enabled>0</enabled>
+                <time>7</time>
+                <cron>30 3 * * *</cron>
+            </configuration>
+        </auto_order_cancel>
     </default>
 </config>

@@ -10,36 +10,40 @@ class OrderCanceller
     protected \Magento\Framework\DB\Transaction $dbTransaction;
     protected \Psr\Log\LoggerInterface $logger;
     protected \MageSuite\AutoOrderCancel\Model\ResourceModel\OrdersToCancelCollection $ordersToCancelCollection;
-    protected \MageSuite\OrderExport\Model\OrderRepositoryInterface $orderRepository;
     protected \Magento\Sales\Api\OrderManagementInterface $orderManagement;
+    protected \Magento\Store\Model\StoreManagerInterface $storeManager;
 
     public function __construct(
         \MageSuite\AutoOrderCancel\Helper\Configuration $configuration,
         \Magento\Framework\DB\Transaction $dbTransaction,
         \Psr\Log\LoggerInterface $logger,
         \MageSuite\AutoOrderCancel\Model\ResourceModel\OrdersToCancelCollection $ordersToCancelCollection,
-        \MageSuite\OrderExport\Model\OrderRepositoryInterface $orderRepository,
-        \Magento\Sales\Api\OrderManagementInterface $orderManagement
+        \Magento\Sales\Api\OrderManagementInterface $orderManagement,
+        \Magento\Store\Model\StoreManagerInterface $storeManager
     ) {
         $this->configuration = $configuration;
         $this->dbTransaction = $dbTransaction;
         $this->logger = $logger;
         $this->ordersToCancelCollection = $ordersToCancelCollection;
-        $this->orderRepository = $orderRepository;
         $this->orderManagement = $orderManagement;
+        $this->storeManager = $storeManager;
     }
 
-    /**
-     * @return void
-     * @throws \Exception
-     */
-    public function cancelUnpaidOrders():void
+    public function execute():void
     {
-        if ($this->configuration->getCancelOrdersEnabled() === false) {
-            return;
-        }
+        foreach ($this->storeManager->getStores() as $store) {
+            $storeId = (int) $store->getId();
+            if ($this->configuration->getCancelOrdersEnabled($storeId) === false) {
+                continue;
+            }
 
-        $orders = $this->ordersToCancelCollection->getOrders();
+            $this->cancelUnpaidOrders($storeId);
+        }
+    }
+
+    public function cancelUnpaidOrders(?int $storeId = null):void
+    {
+        $orders = $this->ordersToCancelCollection->getOrders($storeId);
 
         foreach ($orders as $order) {
             try {

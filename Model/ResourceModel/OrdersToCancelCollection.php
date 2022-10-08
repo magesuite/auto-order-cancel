@@ -20,13 +20,9 @@ class OrdersToCancelCollection
         $this->orderCollectionFactory = $orderCollectionFactory;
     }
 
-    /**
-     * @return \Magento\Sales\Model\ResourceModel\Order\Collection
-     * @throws \Exception
-     */
-    public function getOrders():\Magento\Sales\Model\ResourceModel\Order\Collection
+    public function getOrders(?int $storeId = null):\Magento\Sales\Model\ResourceModel\Order\Collection
     {
-        $cancelOrdersTimeInDays = $this->configuration->getCancelOrdersTime();
+        $cancelOrdersTimeInDays = $this->configuration->getCancelOrdersTime($storeId);
         $cancelOrdersDate = $this->localeDate->date()
             ->sub(new \DateInterval(sprintf('P%dD', $cancelOrdersTimeInDays)))
             ->format(\Magento\Framework\Stdlib\DateTime::DATETIME_PHP_FORMAT);
@@ -40,16 +36,23 @@ class OrdersToCancelCollection
             \Magento\Sales\Api\Data\OrderInterface::CREATED_AT,
             ['lt' => $cancelOrdersDate]
         );
-        $orderCollection->getSelect()
+        $orderCollectionSelect = $orderCollection->getSelect()
             ->join(
                 ['sop' => 'sales_order_payment'],
                 'main_table.entity_id = sop.parent_id',
                 ['method']
             )
             ->where(
-                'sop.method = ?',
-                \Magento\OfflinePayments\Model\Banktransfer::PAYMENT_METHOD_BANKTRANSFER_CODE
+                'sop.method IN (?)',
+                $this->configuration->getPaymentMethods($storeId)
             );
+
+        if (!empty($storeId)) {
+            $orderCollectionSelect->where(
+                'main_table.store_id = ?',
+                $storeId
+            );
+        }
 
         return $orderCollection;
     }
