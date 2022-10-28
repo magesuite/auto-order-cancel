@@ -38,8 +38,9 @@ class OrderCancellerTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @magentoConfigFixture payment/banktransfer/active 1
-     * @magentoConfigFixture payment/banktransfer/cancel_orders_time 1
-     * @magentoConfigFixture payment/banktransfer/cancel_orders_enabled 1
+     * @magentoConfigFixture current_store auto_order_cancel/configuration/cancel_orders_time 1
+     * @magentoConfigFixture current_store auto_order_cancel/configuration/cancel_orders_enabled 1
+     * @magentoConfigFixture current_store auto_order_cancel/configuration/payment_methods banktransfer
      * @magentoDataFixture MageSuite_AutoOrderCancel::Test/Integration/_files/order_with_1_qty_product.php
      * @throws \Magento\Framework\Exception\CouldNotSaveException
      */
@@ -53,16 +54,17 @@ class OrderCancellerTest extends \PHPUnit\Framework\TestCase
         $order->setCreatedAt($cancelOrdersDate);
         $this->orderRepository->save($order);
 
-        $this->orderCanceller->cancelUnpaidOrders();
+        $this->orderCanceller->execute();
 
         $order = $this->getOrder(self::TEST_ORDER_INCREMENT_ID);
         $this->assertEquals(\Magento\Sales\Model\Order::STATE_CANCELED, $order->getState());
     }
 
     /**
-     * @magentoConfigFixture payment/banktransfer/active 1
-     * @magentoConfigFixture payment/banktransfer/cancel_orders_time 5
-     * @magentoConfigFixture payment/banktransfer/cancel_orders_enabled 1
+     * @magentoConfigFixture current_store payment/banktransfer/active 1
+     * @magentoConfigFixture current_store auto_order_cancel/configuration/cancel_orders_time 5
+     * @magentoConfigFixture current_store auto_order_cancel/configuration/cancel_orders_enabled 1
+     * @magentoConfigFixture current_store auto_order_cancel/configuration/payment_methods banktransfer
      * @magentoDataFixture MageSuite_AutoOrderCancel::Test/Integration/_files/order_with_1_qty_product.php
      * @throws \Magento\Framework\Exception\CouldNotSaveException
      */
@@ -83,9 +85,28 @@ class OrderCancellerTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @param string $orderIncrementId
-     * @return \Magento\Sales\Api\Data\OrderInterface
+     * @magentoConfigFixture payment/banktransfer/active 1
+     * @magentoConfigFixture current_store auto_order_cancel/configuration/cancel_orders_time 1
+     * @magentoConfigFixture current_store auto_order_cancel/configuration/cancel_orders_enabled 1
+     * @magentoDataFixture MageSuite_AutoOrderCancel::Test/Integration/_files/order_with_1_qty_product.php
+     * @throws \Magento\Framework\Exception\CouldNotSaveException
      */
+    public function testNotCancelOrderNoPaymentSelected(): void
+    {
+        $order = $this->getOrder(self::TEST_ORDER_INCREMENT_ID);
+        $this->assertEquals(\Magento\Sales\Model\Order::STATE_NEW, $order->getState());
+        $cancelOrdersDate = $this->localeDate->date()
+            ->sub(new \DateInterval('P2D'))
+            ->format(\Magento\Framework\Stdlib\DateTime::DATETIME_PHP_FORMAT);
+        $order->setCreatedAt($cancelOrdersDate);
+        $this->orderRepository->save($order);
+
+        $this->orderCanceller->execute();
+
+        $order = $this->getOrder(self::TEST_ORDER_INCREMENT_ID);
+        $this->assertEquals(\Magento\Sales\Model\Order::STATE_NEW, $order->getState());
+    }
+
     protected function getOrder(string $orderIncrementId): \Magento\Sales\Api\Data\OrderInterface
     {
         $searchCriteria = $this->searchCriteriaBuilder->addFilter('increment_id', $orderIncrementId)

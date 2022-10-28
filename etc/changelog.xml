@@ -11,6 +11,13 @@
                     <overview>Initial release</overview>
                 </entry>
             </tag>
+            <tag version="v1.0.4" date="2022-10-23">
+                <entry>
+                    <type>FEATURE</type>
+                    <overview>Added option to select multiple payment methods for bank transfer.</overview>
+                    <ticket_id>MGP-922</ticket_id>
+                </entry>
+            </tag>
         </changelog>
     </module>
 </config>

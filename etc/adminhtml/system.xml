@@ -1,21 +1,31 @@
 <?xml version="1.0"?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
     <system>
-        <section id="payment">
-            <group id="banktransfer">
-                <field id="cancel_orders_enabled" translate="label" type="select" sortOrder="200" showInDefault="1" showInWebsite="1" showInStore="0">
+        <tab id="magesuite" translate="label" sortOrder="300">
+            <label>MageSuite</label>
+        </tab>
+        <section id="auto_order_cancel" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Auto order cancel</label>
+            <tab>magesuite</tab>
+            <resource>Magento_Payment::payment</resource>
+            <group id="configuration" translate="label" type="text" sortOrder="1" showInDefault="1">
+                <label>Configuration</label>
+                <field id="enabled" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0">
                     <label>Enable cancellation of unpaid orders</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                    <frontend_class>cs-csfeature__logo</frontend_class>
                 </field>
-                <field id="cancel_orders_time" translate="label" type="text" sortOrder="210" showInDefault="1" showInWebsite="1" showInStore="1">
+                <field id="payment_methods" translate="label" type="multiselect" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Payment Methods</label>
+                    <source_model>Magento\Payment\Model\Config\Source\Allmethods</source_model>
+                    <comment><![CDATA[Please select the bank transfer methods to auto cancel.]]></comment>
+                </field>
+                <field id="time" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Time to cancel orders (days)</label>
                     <comment><![CDATA[Number of days after which an unpaid order will be canceled]]></comment>
-                    <frontend_class>cs-csfeature__logo</frontend_class>
                 </field>
-                <field id="cancel_orders_cron" translate="label" type="text" sortOrder="220" showInDefault="1" showInWebsite="1" showInStore="1">
+                <field id="cron" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Cancel orders cron schedule</label>
-                    <frontend_class>cs-csfeature__logo</frontend_class>
+                    <comment>><![CDATA[Provide cron schedule in * * * * * format]]></comment>
                 </field>
             </group>
         </section>
