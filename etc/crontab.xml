@@ -5,7 +5,7 @@
         <job name="cancel_unpaid_bank_transfer_orders"
              instance="MageSuite\AutoOrderCancel\Cron\CancelOrders"
              method="execute">
-            <config_path>payment/banktransfer/cancel_orders_cron</config_path>
+            <config_path>auto_order_cancel/configuration/cron</config_path>
         </job>
     </group>
 </config>
