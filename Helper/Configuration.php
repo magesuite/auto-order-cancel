@@ -6,8 +6,8 @@ namespace MageSuite\AutoOrderCancel\Helper;
 
 class Configuration extends \Magento\Framework\App\Helper\AbstractHelper
 {
-    public const XML_PATH_CANCEL_ORDERS_TIME = 'auto_order_cancel/configuration/cancel_orders_time';
-    public const XML_PATH_CANCEL_ORDERS_ENABLED = 'auto_order_cancel/configuration/cancel_orders_enabled';
+    public const XML_PATH_CANCEL_ORDERS_TIME = 'auto_order_cancel/configuration/time';
+    public const XML_PATH_CANCEL_ORDERS_ENABLED = 'auto_order_cancel/configuration/enabled';
     public const XML_PATH_CANCEL_ORDERS_PAYMENT_METHODS = 'auto_order_cancel/configuration/payment_methods';
 
     public function getCancelOrdersTime(?int $storeId = null): int

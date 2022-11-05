@@ -38,8 +38,8 @@ class OrderCancellerTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @magentoConfigFixture payment/banktransfer/active 1
-     * @magentoConfigFixture current_store auto_order_cancel/configuration/cancel_orders_time 1
-     * @magentoConfigFixture current_store auto_order_cancel/configuration/cancel_orders_enabled 1
+     * @magentoConfigFixture current_store auto_order_cancel/configuration/time 1
+     * @magentoConfigFixture current_store auto_order_cancel/configuration/enabled 1
      * @magentoConfigFixture current_store auto_order_cancel/configuration/payment_methods banktransfer
      * @magentoDataFixture MageSuite_AutoOrderCancel::Test/Integration/_files/order_with_1_qty_product.php
      * @throws \Magento\Framework\Exception\CouldNotSaveException
@@ -62,8 +62,8 @@ class OrderCancellerTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @magentoConfigFixture current_store payment/banktransfer/active 1
-     * @magentoConfigFixture current_store auto_order_cancel/configuration/cancel_orders_time 5
-     * @magentoConfigFixture current_store auto_order_cancel/configuration/cancel_orders_enabled 1
+     * @magentoConfigFixture current_store auto_order_cancel/configuration/time 5
+     * @magentoConfigFixture current_store auto_order_cancel/configuration/enabled 1
      * @magentoConfigFixture current_store auto_order_cancel/configuration/payment_methods banktransfer
      * @magentoDataFixture MageSuite_AutoOrderCancel::Test/Integration/_files/order_with_1_qty_product.php
      * @throws \Magento\Framework\Exception\CouldNotSaveException
@@ -86,8 +86,8 @@ class OrderCancellerTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @magentoConfigFixture payment/banktransfer/active 1
-     * @magentoConfigFixture current_store auto_order_cancel/configuration/cancel_orders_time 1
-     * @magentoConfigFixture current_store auto_order_cancel/configuration/cancel_orders_enabled 1
+     * @magentoConfigFixture current_store auto_order_cancel/configuration/time 1
+     * @magentoConfigFixture current_store auto_order_cancel/configuration/enabled 1
      * @magentoDataFixture MageSuite_AutoOrderCancel::Test/Integration/_files/order_with_1_qty_product.php
      * @throws \Magento\Framework\Exception\CouldNotSaveException
      */
